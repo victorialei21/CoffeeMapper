@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeMapper">
         <activity
+            android:name=".CoffeeDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
