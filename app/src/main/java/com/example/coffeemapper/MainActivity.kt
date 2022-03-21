@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.model.LatLng
 import java.util.ArrayList
+
+// Victoria Lei and Michelle Yun
 
 var places = ArrayList<String>()
 var locations = ArrayList<LatLng>()
@@ -53,14 +56,14 @@ class MainActivity : AppCompatActivity() {
             places.add("+  Add a new cafe")
             latitudes.add("0")
             longitudes.add("0")
-        }//end if
+        }
 
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, places)
         listView.adapter = arrayAdapter
 
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, l ->
-                if(position == 0){
+                if (position == 0) {
                     val intent = Intent(applicationContext, MapActivity::class.java)
                     intent.putExtra("placeNumber", position)
                 } else {
