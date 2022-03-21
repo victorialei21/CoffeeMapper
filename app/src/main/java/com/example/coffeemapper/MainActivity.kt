@@ -66,11 +66,11 @@ class MainActivity : AppCompatActivity() {
                 if (position == 0) {
                     val intent = Intent(applicationContext, MapActivity::class.java)
                     intent.putExtra("placeNumber", position)
+                    startActivity(intent)
                 } else {
                     val intent = Intent(applicationContext, CoffeeDetailActivity::class.java)
                     intent.putExtra("placeNumber", position)
                 }
-                startActivity(intent)
             }
         listView.onItemLongClickListener =
             AdapterView.OnItemLongClickListener { adapterView, view, i, l ->

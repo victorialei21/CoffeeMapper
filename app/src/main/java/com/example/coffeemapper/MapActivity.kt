@@ -23,12 +23,14 @@ import com.example.coffeemapper.databinding.ActivityMapBinding
 import java.util.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongClickListener {
+
     private lateinit var mMap: GoogleMap //set up google
     private lateinit var binding: ActivityMapBinding//set up by google
     var sentLoc = -1
 
     var locationManager: LocationManager? = null
     var locationListener: LocationListener? = null
+
 
     fun centerMapOnLocation(location: Location?, title: String?) {
 
@@ -39,7 +41,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 12f))
         }
     }//centerMapOnLocation
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>,
                                             grantResults: IntArray)
     {
@@ -48,8 +49,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
             {
-                locationManager!!.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 0, 0f,
+                locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f,
                     locationListener!!)
 
                 val lastKnownLocation = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -79,7 +79,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
 
         if (sentLoc == 0) {
             // Zoom in on user location
-            locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
+            locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
             locationListener = object : LocationListener {
                 @Override
                 override fun onLocationChanged(location: Location) {
@@ -102,11 +102,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION ), 1 )
             }
         } else {
-            val placeLocation =  Location(LocationManager.GPS_PROVIDER);
+            val placeLocation =  Location(LocationManager.GPS_PROVIDER)
 
             placeLocation.latitude = locations[sentLoc].latitude
             placeLocation.longitude = locations[sentLoc].longitude
-            centerMapOnLocation(placeLocation, places[sentLoc]);
+            centerMapOnLocation(placeLocation, places[sentLoc])
 
         }//else
 
@@ -140,17 +140,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
 
 
         val sharedPreferences =
-            getSharedPreferences("com.example.memorableplaces", MODE_PRIVATE)
+            getSharedPreferences("com.example.coffeemapper", MODE_PRIVATE)
 
         for (coord in locations) {
             latitudes.add(coord.latitude.toString())
             longitudes.add(coord.longitude.toString())
         }
-        sharedPreferences.edit().putString("places", ObjectSerializer.serialize(places)).apply();
-        sharedPreferences.edit().putString("lats", ObjectSerializer.serialize(latitudes)).apply();
-        sharedPreferences.edit().putString("lons", ObjectSerializer.serialize(longitudes)).apply();
-        arrayAdapter!!.notifyDataSetChanged();
+        sharedPreferences.edit().putString("places", ObjectSerializer.serialize(places)).apply()
+        sharedPreferences.edit().putString("lats", ObjectSerializer.serialize(latitudes)).apply()
+        sharedPreferences.edit().putString("lons", ObjectSerializer.serialize(longitudes)).apply()
+        arrayAdapter!!.notifyDataSetChanged()
         Toast.makeText(this, "$latLng saved", Toast.LENGTH_SHORT).show()
 
     }//onMapLongClick
-}//MapActivity
+}//class MapActivity
