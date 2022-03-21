@@ -2,24 +2,24 @@ package com.example.coffeemapper
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.coffeemapper.databinding.ActivityMapBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.coffeemapper.databinding.ActivityMapBinding
 import java.util.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongClickListener {
@@ -134,11 +134,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
             address += sdf.format(Date())
         }
         mMap.addMarker(MarkerOptions().position(latLng).title(address))
-        places.add(address)
-        locations.add(latLng)
 
+        // take to add cafe page
+        val intent = Intent(applicationContext, AddActivity::class.java)
+        intent.putExtra("address", address)
+        val args = Bundle()
+        args.putParcelable("latLng", latLng)
+        intent.putExtra("bundle", args)
+        startActivity(intent)
 
+        //places.add(address)
+        //locations.add(latLng)
 
+        /*
         val sharedPreferences =
             getSharedPreferences("com.example.coffeemapper", MODE_PRIVATE)
 
@@ -152,5 +160,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMapLongC
         arrayAdapter!!.notifyDataSetChanged()
         Toast.makeText(this, "$latLng saved", Toast.LENGTH_SHORT).show()
 
+
+         */
     }//onMapLongClick
 }//class MapActivity
