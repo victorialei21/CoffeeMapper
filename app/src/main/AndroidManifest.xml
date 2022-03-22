@@ -17,9 +17,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC8DQFpB-mapvzYbd4mPqdMk4pQjQMgz34"/>
         <activity
-            android:name=".CoffeeDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".MapActivity"
             android:exported="false" />
         <activity
