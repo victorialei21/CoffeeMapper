@@ -11,7 +11,6 @@ import com.google.android.gms.maps.model.LatLng
 
 class AddActivity : AppCompatActivity() {
     var rating = 5
-    var cafeName = ""
     lateinit var address : String
     lateinit var latLng : LatLng
     lateinit var ratingText : TextView
@@ -39,6 +38,7 @@ class AddActivity : AppCompatActivity() {
             places.add(address)
             locations.add(latLng)
             names.add(nameStr)
+            ratings.add(rating.toString())
 
             val sharedPreferences =
                 getSharedPreferences("com.example.coffeemapper", MODE_PRIVATE)
@@ -51,7 +51,9 @@ class AddActivity : AppCompatActivity() {
             sharedPreferences.edit().putString("lats", ObjectSerializer.serialize(latitudes)).apply()
             sharedPreferences.edit().putString("lons", ObjectSerializer.serialize(longitudes)).apply()
             sharedPreferences.edit().putString("names", ObjectSerializer.serialize(names)).apply()
+            sharedPreferences.edit().putString("ratings", ObjectSerializer.serialize(ratings)).apply()
             arrayAdapter!!.notifyDataSetChanged()
+
             Toast.makeText(this, "$nameStr saved", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(applicationContext, MainActivity::class.java)
@@ -72,4 +74,4 @@ class AddActivity : AppCompatActivity() {
         ratingText.text = "$rating/5"
     } // decrementRating
 
-}
+}//AddActivity

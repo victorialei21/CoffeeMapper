@@ -16,6 +16,7 @@ import java.util.ArrayList
 // Victoria Lei and Michelle Yun
 
 var names = ArrayList<String>()
+var ratings = ArrayList<String>()
 var places = ArrayList<String>()
 var locations = ArrayList<LatLng>()
 var arrayAdapter: ArrayAdapter<*>? = null
@@ -30,12 +31,21 @@ class MainActivity : AppCompatActivity() {
         var listView = findViewById<ListView>(R.id.listView)
         val sharedPreferences = getSharedPreferences("com.example.coffeemapper", Context.MODE_PRIVATE)
 
+        names.clear()
+        ratings.clear()
         places.clear()
         latitudes.clear()
         longitudes.clear()
         locations.clear()
-        names.clear()
 
+        names = ObjectSerializer.deserialize(
+            sharedPreferences
+                .getString("names", ObjectSerializer.serialize(ArrayList<String>()))
+        ) as ArrayList<String>
+        ratings = ObjectSerializer.deserialize(
+            sharedPreferences
+                .getString("ratings", ObjectSerializer.serialize(ArrayList<String>()))
+        ) as ArrayList<String>
         places = ObjectSerializer.deserialize(
             sharedPreferences
                 .getString("places", ObjectSerializer.serialize(ArrayList<String>()))
@@ -48,10 +58,6 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences
                 .getString("lons", ObjectSerializer.serialize(ArrayList<String>()))
         ) as ArrayList<String>
-        names = ObjectSerializer.deserialize(
-            sharedPreferences
-                .getString("names", ObjectSerializer.serialize(ArrayList<String>()))
-        ) as ArrayList<String>
 
         if (places.size > 0 && latitudes.size > 0 && longitudes.size > 0 && names.size > 0) {
             for (i in latitudes.indices) {
@@ -59,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             names.add("+  Add a new cafe")
+            ratings.add("0")
             locations.add(LatLng(0.0, 0.0))
             places.add("X")
             latitudes.add("0")
@@ -92,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                         latitudes.removeAt(itemDelete)
                         longitudes.removeAt(itemDelete)
                         names.removeAt(itemDelete)
+                        ratings.removeAt(itemDelete)
 
                         arrayAdapter!!.notifyDataSetChanged()
                         sharedPreferences.edit()
@@ -105,6 +113,9 @@ class MainActivity : AppCompatActivity() {
                             .apply()
                         sharedPreferences.edit()
                             .putString("names", ObjectSerializer.serialize(names))
+                            .apply()
+                        sharedPreferences.edit()
+                            .putString("ratings", ObjectSerializer.serialize(ratings))
                             .apply()
                     }//setPositiveButton
                     .setNegativeButton("No", null)
