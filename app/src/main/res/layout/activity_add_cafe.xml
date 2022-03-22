@@ -22,71 +22,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ratingId"
-        android:layout_width="74dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:inputType="number"
-        android:singleLine="true"
-        android:text="5"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemName" />
-
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="49dp"
         android:backgroundTint="#b3cfe6"
         android:onClick="addItem"
         android:text="Add"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="32dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_vertical"
-        android:text="/ 5 "
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/ratingId"
-        app:layout_constraintTop_toBottomOf="@+id/itemName" />
-
-    <ImageButton
-        android:id="@+id/addButton"
-        android:layout_width="51dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="20dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
         android:layout_marginTop="25dp"
-        android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
-        android:onClick="incrementRating"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/itemName"
-        tools:srcCompat="@raw/plus" />
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemName">
 
-    <ImageButton
-        android:id="@+id/subtractButton"
-        android:layout_width="51dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="25dp"
-        android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
-        android:onClick="decrementRating"
-        app:layout_constraintStart_toEndOf="@+id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/itemName"
-        tools:srcCompat="@raw/minus" />
+        <TextView
+            android:id="@+id/ratingId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="100dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="5/5"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/addButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemName" />
+
+        <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="@color/white"
+            android:onClick="incrementRating"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus" />
+
+        <ImageButton
+            android:id="@+id/subtractButton"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:onClick="decrementRating"
+            android:scaleType="fitCenter"
+            android:src="@drawable/minus" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

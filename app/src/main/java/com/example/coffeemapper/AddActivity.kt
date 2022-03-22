@@ -3,6 +3,7 @@ package com.example.coffeemapper
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.model.LatLng
@@ -12,7 +13,7 @@ class AddActivity : AppCompatActivity() {
     var cafeName = ""
     lateinit var address : String
     lateinit var latLng : LatLng
-
+    lateinit var ratingText : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_cafe)
@@ -21,6 +22,8 @@ class AddActivity : AppCompatActivity() {
         if (bundle != null) {
             latLng = bundle.getParcelable("latLng")!!
         }
+        ratingText = findViewById(R.id.ratingId)
+
 
     }//onCreate
 
@@ -52,11 +55,15 @@ class AddActivity : AppCompatActivity() {
     } // addItem
 
     fun incrementRating(view: View) {
-
+        if(rating == 5) return
+        rating++
+        ratingText.text = "$rating/5"
     } // incrementRating
 
     fun decrementRating(view: View) {
-
+        if(rating == 1) return
+        rating--
+        ratingText.text = "$rating/5"
     } // decrementRating
 
 }
