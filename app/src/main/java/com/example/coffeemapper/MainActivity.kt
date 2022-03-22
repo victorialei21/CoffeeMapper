@@ -15,6 +15,7 @@ import java.util.ArrayList
 
 // Victoria Lei and Michelle Yun
 
+var names = ArrayList<String>()
 var places = ArrayList<String>()
 var locations = ArrayList<LatLng>()
 var arrayAdapter: ArrayAdapter<*>? = null
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         latitudes.clear()
         longitudes.clear()
         locations.clear()
+        names.clear()
 
         places = ObjectSerializer.deserialize(
             sharedPreferences
@@ -46,19 +48,24 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences
                 .getString("lons", ObjectSerializer.serialize(ArrayList<String>()))
         ) as ArrayList<String>
+        names = ObjectSerializer.deserialize(
+            sharedPreferences
+                .getString("names", ObjectSerializer.serialize(ArrayList<String>()))
+        ) as ArrayList<String>
 
-        if (places.size > 0 && latitudes.size > 0 && longitudes.size > 0) {
+        if (places.size > 0 && latitudes.size > 0 && longitudes.size > 0 && names.size > 0) {
             for (i in latitudes.indices) {
                 locations.add(LatLng(latitudes[i].toDouble(), longitudes[i].toDouble()))
             }
         } else {
+            names.add("+  Add a new cafe")
             locations.add(LatLng(0.0, 0.0))
-            places.add("+  Add a new cafe")
+            places.add("X")
             latitudes.add("0")
             longitudes.add("0")
         }
 
-        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, places)
+        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
         listView.adapter = arrayAdapter
 
         listView.onItemClickListener =
@@ -84,6 +91,8 @@ class MainActivity : AppCompatActivity() {
                         places.removeAt(itemDelete)
                         latitudes.removeAt(itemDelete)
                         longitudes.removeAt(itemDelete)
+                        names.removeAt(itemDelete)
+
                         arrayAdapter!!.notifyDataSetChanged()
                         sharedPreferences.edit()
                             .putString("places", ObjectSerializer.serialize(places))
@@ -93,6 +102,9 @@ class MainActivity : AppCompatActivity() {
                             .apply()
                         sharedPreferences.edit()
                             .putString("lons", ObjectSerializer.serialize(longitudes))
+                            .apply()
+                        sharedPreferences.edit()
+                            .putString("names", ObjectSerializer.serialize(names))
                             .apply()
                     }//setPositiveButton
                     .setNegativeButton("No", null)
